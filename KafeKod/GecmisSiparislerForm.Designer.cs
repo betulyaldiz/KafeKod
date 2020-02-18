@@ -29,27 +29,16 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvSiparisDetaylari = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.adet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tutar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSiparisler = new System.Windows.Forms.DataGridView();
-            this.masaNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AcilisZamani = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KapanisZamani = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.odenenTutar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ToplamTutar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dgvSiparisDetaylari = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylari)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylari)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -71,16 +60,6 @@
             this.splitContainer1.SplitterDistance = 246;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(12, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 19);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Sipariş Detayları";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -91,89 +70,46 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "Siparisler";
             // 
-            // dgvSiparisDetaylari
-            // 
-            this.dgvSiparisDetaylari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSiparisDetaylari.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.adet,
-            this.Tutar,
-            this.Column1});
-            this.dgvSiparisDetaylari.Location = new System.Drawing.Point(16, 35);
-            this.dgvSiparisDetaylari.Name = "dgvSiparisDetaylari";
-            this.dgvSiparisDetaylari.Size = new System.Drawing.Size(755, 174);
-            this.dgvSiparisDetaylari.TabIndex = 19;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Ürün Ad";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Birim Fiyat";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // adet
-            // 
-            this.adet.HeaderText = "Adet";
-            this.adet.Name = "adet";
-            // 
-            // Tutar
-            // 
-            this.Tutar.HeaderText = "Tutar ₺";
-            this.Tutar.Name = "Tutar";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            // 
             // dgvSiparisler
             // 
+            this.dgvSiparisler.AllowUserToAddRows = false;
+            this.dgvSiparisler.AllowUserToDeleteRows = false;
+            this.dgvSiparisler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSiparisler.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvSiparisler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSiparisler.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.masaNo,
-            this.AcilisZamani,
-            this.KapanisZamani,
-            this.durum,
-            this.odenenTutar,
-            this.ToplamTutar});
             this.dgvSiparisler.Location = new System.Drawing.Point(16, 33);
+            this.dgvSiparisler.MultiSelect = false;
             this.dgvSiparisler.Name = "dgvSiparisler";
+            this.dgvSiparisler.ReadOnly = true;
+            this.dgvSiparisler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSiparisler.Size = new System.Drawing.Size(755, 184);
             this.dgvSiparisler.TabIndex = 18;
+            this.dgvSiparisler.SelectionChanged += new System.EventHandler(this.dgvSiparisler_SelectionChanged);
             // 
-            // masaNo
+            // label2
             // 
-            this.masaNo.HeaderText = "MasaNo";
-            this.masaNo.Name = "masaNo";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(12, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 19);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Sipariş Detayları";
             // 
-            // AcilisZamani
+            // dgvSiparisDetaylari
             // 
-            this.AcilisZamani.HeaderText = "Açılış Zamanı";
-            this.AcilisZamani.Name = "AcilisZamani";
-            // 
-            // KapanisZamani
-            // 
-            this.KapanisZamani.HeaderText = "Kapanış Zamanı";
-            this.KapanisZamani.Name = "KapanisZamani";
-            // 
-            // durum
-            // 
-            this.durum.HeaderText = "Durum";
-            this.durum.Name = "durum";
-            // 
-            // odenenTutar
-            // 
-            this.odenenTutar.HeaderText = "Ödenen Tutar";
-            this.odenenTutar.Name = "odenenTutar";
-            // 
-            // ToplamTutar
-            // 
-            this.ToplamTutar.HeaderText = "Toplam Tutar ₺";
-            this.ToplamTutar.Name = "ToplamTutar";
+            this.dgvSiparisDetaylari.AllowUserToAddRows = false;
+            this.dgvSiparisDetaylari.AllowUserToDeleteRows = false;
+            this.dgvSiparisDetaylari.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSiparisDetaylari.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvSiparisDetaylari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSiparisDetaylari.Location = new System.Drawing.Point(16, 35);
+            this.dgvSiparisDetaylari.MultiSelect = false;
+            this.dgvSiparisDetaylari.Name = "dgvSiparisDetaylari";
+            this.dgvSiparisDetaylari.ReadOnly = true;
+            this.dgvSiparisDetaylari.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSiparisDetaylari.Size = new System.Drawing.Size(755, 174);
+            this.dgvSiparisDetaylari.TabIndex = 19;
             // 
             // GecmisSiparislerForm
             // 
@@ -190,8 +126,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylari)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylari)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -201,18 +137,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvSiparisler;
-        private System.Windows.Forms.DataGridViewTextBoxColumn masaNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AcilisZamani;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KapanisZamani;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn odenenTutar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ToplamTutar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvSiparisDetaylari;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn adet;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tutar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

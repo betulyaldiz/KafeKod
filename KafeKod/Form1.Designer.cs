@@ -43,6 +43,7 @@
             this.lvwMasalar.Size = new System.Drawing.Size(587, 415);
             this.lvwMasalar.TabIndex = 2;
             this.lvwMasalar.UseCompatibleStateImageBehavior = false;
+            this.lvwMasalar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvwMasalar_MouseDoubleClick);
             // 
             // menuStrip1
             // 
@@ -66,6 +67,7 @@
             this.tsmiGecmisSiparisler.Name = "tsmiGecmisSiparisler";
             this.tsmiGecmisSiparisler.Size = new System.Drawing.Size(108, 20);
             this.tsmiGecmisSiparisler.Text = "Geçmiş Siparişler";
+            this.tsmiGecmisSiparisler.Click += new System.EventHandler(this.tsmiGecmisSiparisler_Click);
             // 
             // Form1
             // 
