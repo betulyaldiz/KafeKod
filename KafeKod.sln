@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafeKod", "KafeKod\KafeKod.csproj", "{74173B38-892F-487B-882C-368762559DCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafeKod.Data", "KafeKod.Data\KafeKod.Data.csproj", "{646E8475-C5BC-41BC-B466-66A857EC0B96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{74173B38-892F-487B-882C-368762559DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74173B38-892F-487B-882C-368762559DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74173B38-892F-487B-882C-368762559DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{646E8475-C5BC-41BC-B466-66A857EC0B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{646E8475-C5BC-41BC-B466-66A857EC0B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{646E8475-C5BC-41BC-B466-66A857EC0B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{646E8475-C5BC-41BC-B466-66A857EC0B96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
