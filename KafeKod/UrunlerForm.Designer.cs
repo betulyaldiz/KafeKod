@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nudbirinFiyat = new System.Windows.Forms.NumericUpDown();
+            this.nudbirimFiyat = new System.Windows.Forms.NumericUpDown();
             this.btnEkle = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvUrunler = new System.Windows.Forms.DataGridView();
-            this.urunAd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.birimFiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtUrunAd = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudbirinFiyat)).BeginInit();
+            this.clmUrunAd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmBirimFiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.nudbirimFiyat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).BeginInit();
             this.SuspendLayout();
             // 
-            // nudbirinFiyat
+            // nudbirimFiyat
             // 
-            this.nudbirinFiyat.DecimalPlaces = 2;
-            this.nudbirinFiyat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.nudbirinFiyat.Location = new System.Drawing.Point(174, 47);
-            this.nudbirinFiyat.Name = "nudbirinFiyat";
-            this.nudbirinFiyat.Size = new System.Drawing.Size(120, 21);
-            this.nudbirinFiyat.TabIndex = 11;
+            this.nudbirimFiyat.DecimalPlaces = 2;
+            this.nudbirimFiyat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.nudbirimFiyat.Location = new System.Drawing.Point(174, 47);
+            this.nudbirimFiyat.Name = "nudbirimFiyat";
+            this.nudbirimFiyat.Size = new System.Drawing.Size(120, 21);
+            this.nudbirimFiyat.TabIndex = 11;
             // 
             // btnEkle
             // 
@@ -58,6 +58,7 @@
             this.btnEkle.TabIndex = 9;
             this.btnEkle.Text = "EKLE";
             this.btnEkle.UseVisualStyleBackColor = true;
+            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // label2
             // 
@@ -81,24 +82,19 @@
             // 
             // dgvUrunler
             // 
+            this.dgvUrunler.AllowUserToAddRows = false;
+            this.dgvUrunler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUrunler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUrunler.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.urunAd,
-            this.birimFiyat});
+            this.clmUrunAd,
+            this.clmBirimFiyat});
             this.dgvUrunler.Location = new System.Drawing.Point(30, 91);
             this.dgvUrunler.Name = "dgvUrunler";
+            this.dgvUrunler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUrunler.Size = new System.Drawing.Size(365, 350);
             this.dgvUrunler.TabIndex = 12;
-            // 
-            // urunAd
-            // 
-            this.urunAd.HeaderText = "Ürün Ad";
-            this.urunAd.Name = "urunAd";
-            // 
-            // birimFiyat
-            // 
-            this.birimFiyat.HeaderText = "Birim Fiyat";
-            this.birimFiyat.Name = "birimFiyat";
+            this.dgvUrunler.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvUrunler_CellValidating);
+            this.dgvUrunler.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvUrunler_DataError);
             // 
             // txtUrunAd
             // 
@@ -107,6 +103,18 @@
             this.txtUrunAd.Size = new System.Drawing.Size(119, 20);
             this.txtUrunAd.TabIndex = 13;
             // 
+            // clmUrunAd
+            // 
+            this.clmUrunAd.DataPropertyName = "UrunAd";
+            this.clmUrunAd.HeaderText = "Ürün Adı";
+            this.clmUrunAd.Name = "clmUrunAd";
+            // 
+            // clmBirimFiyat
+            // 
+            this.clmBirimFiyat.DataPropertyName = "BirimFiyat";
+            this.clmBirimFiyat.HeaderText = "Birim Fiyat";
+            this.clmBirimFiyat.Name = "clmBirimFiyat";
+            // 
             // UrunlerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -114,14 +122,14 @@
             this.ClientSize = new System.Drawing.Size(430, 474);
             this.Controls.Add(this.txtUrunAd);
             this.Controls.Add(this.dgvUrunler);
-            this.Controls.Add(this.nudbirinFiyat);
+            this.Controls.Add(this.nudbirimFiyat);
             this.Controls.Add(this.btnEkle);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.MinimumSize = new System.Drawing.Size(446, 513);
             this.Name = "UrunlerForm";
             this.Text = "UrunlerForm";
-            ((System.ComponentModel.ISupportInitialize)(this.nudbirinFiyat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudbirimFiyat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -130,13 +138,13 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown nudbirinFiyat;
+        private System.Windows.Forms.NumericUpDown nudbirimFiyat;
         private System.Windows.Forms.Button btnEkle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvUrunler;
-        private System.Windows.Forms.DataGridViewTextBoxColumn urunAd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn birimFiyat;
         private System.Windows.Forms.TextBox txtUrunAd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmUrunAd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmBirimFiyat;
     }
 }
