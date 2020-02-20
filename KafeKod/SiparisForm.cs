@@ -14,7 +14,7 @@ namespace KafeKod
     public partial class SiparisForm : Form
     {
         //event tanımlıyoruz
-        public event EventHandler<MasaTasimaEventArgs> MasaTasindi; // tasınan masadaki verileri diger masaya aktarmak için
+        public event EventHandler<MasaTasimaEventArgs> MasaTasiniyor; // tasınan masadaki verileri diger masaya aktarmak için
 
 
         //cift tıklayınca masaya masano çıkıyor
@@ -155,11 +155,9 @@ namespace KafeKod
 
             int eskiMasaNo = siparis.MasaNo;
             int hedefMasaNo = (int)cboMasaNo.SelectedItem; //taşıma işlemi gerçekleştiriliyor
-            siparis.MasaNo = hedefMasaNo;
-            masanoGuncelle();
-            MasaNolariYükle();
+          
 
-            if(MasaTasindi != null)
+            if(MasaTasiniyor != null)
             {
                 var args = new MasaTasimaEventArgs
                 {
@@ -168,8 +166,11 @@ namespace KafeKod
                     YeniMasaNo = hedefMasaNo
 
                 };
-                MasaTasindi(this, args);
+                MasaTasiniyor(this, args);
             }
+            siparis.MasaNo = hedefMasaNo;
+            masanoGuncelle();
+            MasaNolariYükle();
 
         }
 

@@ -25,6 +25,9 @@ namespace KafeKod
             //OrnekVerileriYukle();
             InitializeComponent();
             MasalariOlustur();
+            //MasaBul(5).Text = "seni buldum";
+            //MasaBul(12).Text = "hello";
+
         }
 
         private void VerileriOku()
@@ -110,7 +113,7 @@ namespace KafeKod
 
                     //siparis formun oluşma anı
                     SiparisForm frmSiparis = new SiparisForm(db, sip); //yeni forma bağlıyorum içine iki deger veriyorum kafe veri ve siparis  (FORMLAR ARASI VERİ GEÇİŞİ)
-                    frmSiparis.MasaTasindi += FrmSiparis_MasaTasindi;
+                    frmSiparis.MasaTasiniyor += FrmSiparis_MasaTasindi;
                     frmSiparis.ShowDialog();
 
 
@@ -130,20 +133,14 @@ namespace KafeKod
         private void FrmSiparis_MasaTasindi(object sender, MasaTasimaEventArgs e)
         {
             //adım 1: eski masayı boşalt
-            ListViewItem lviEskiMasa = null;
-            foreach (ListViewItem item in lvwMasalar.Items)
-            {
-                if(item.Tag == e.TasinanSiparis)
-                {
-                    lviEskiMasa = item;
-                    break;
-                }
-                lviEskiMasa.Tag = e.EskiMasaNo;
-                lviEskiMasa.ImageKey = "bos";
-
-            }
+            ListViewItem lviEskiMasa = MasaBul(e.EskiMasaNo);
+            lviEskiMasa.Tag=e.EskiMasaNo;
+            lviEskiMasa.ImageKey = "bos";
 
             //adım 2: yeni masaya sipariş koy 
+            ListViewItem lviYeniMasa = MasaBul(e.YeniMasaNo);
+            lviYeniMasa.Tag = e.TasinanSiparis;
+            lviYeniMasa.ImageKey = "dolu";
         }
 
         private void tsmiGecmisSiparisler_Click(object sender, EventArgs e)
@@ -164,9 +161,21 @@ namespace KafeKod
             File.WriteAllText("veri.json", json);
         }
 
-        private void lvwMasalar_DoubleClick(object sender, EventArgs e)
+        private ListViewItem MasaBul (int masaNo)
         {
+            foreach (ListViewItem item in lvwMasalar.Items) 
+            {
+                if(item.Tag is int && (int) item.Tag ==masaNo) //listview içindeki masaNo yu (Tag içinde saklıyorduk) bulup return ile döndürüyoruz
+                {
+                    return item;
+                }
+                else if(item.Tag is Siparis && ((Siparis)item.Tag).MasaNo == masaNo)
+                {
+                    return item;
+                }
 
+            }
+            return null;
         }
     }
 }
