@@ -15,16 +15,15 @@ namespace KafeKod
     public partial class UrunlerForm : Form
     {
         KafeContex db;
-        private BindingList<Urun> blUrunler;
+        
 
         public UrunlerForm(KafeContex kafeVeri)
         {
             db = kafeVeri;
             InitializeComponent();
             dgvUrunler.AutoGenerateColumns = false; //ürün olmasına ragmen hiç sutunu olmayan bir dgv
-            blUrunler = new BindingList<Urun>(db.Urunler);
-            dgvUrunler.DataSource = blUrunler;
-            
+            dgvUrunler.DataSource = db.Urunler.OrderBy(x => x.UrunAd).ToList(); //binding list kaldırdık sıralı gelmesi için başlangıçtada Order by sıralaması yapıyoruz
+
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -37,12 +36,14 @@ namespace KafeKod
                 return;
 
             }
-            blUrunler.Add(new Urun
+            db.Urunler.Add(new Urun
             {
                 UrunAd = urunAd,
                 BirimFiyat = nudbirimFiyat.Value
             });
-            db.Urunler.Sort();
+            db.SaveChanges();
+
+            dgvUrunler.DataSource = db.Urunler.OrderBy(x => x.UrunAd).ToList();
         }
 
         private void dgvUrunler_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -62,7 +63,10 @@ namespace KafeKod
 
                 }
                 else
+                {
                     dgvUrunler.Rows[e.RowIndex].ErrorText = "";
+                    db.SaveChanges();
+                }
             }
         }
     }

@@ -15,44 +15,21 @@ namespace KafeKod
 { //Kafekod referances sağ tık ile Kafekod.Data yı referans ekliyoruz iki projeyi biribirine bağlıyoruz.
     public partial class Form1 : Form
     {
-        KafeContex db;
-        //int masaAdet = 20;
+        KafeContex db=new KafeContex();
+        
+        //int masaAdet = 20; -> properties.settings den çektik
 
         public Form1()
-        {
-            VerileriOku();
+        {           
             //db = new KafeVeri(); //içinde ürün listesi,aktif sipariş listesi,geçmiş sipariş listesi var
             //OrnekVerileriYukle();
             InitializeComponent();
             MasalariOlustur();
             //MasaBul(5).Text = "seni buldum";
             //MasaBul(12).Text = "hello";
-
         }
 
-        private void VerileriOku()
-        {
-            try
-            {
-                string json = File.ReadAllText("veri.json");
-                db = JsonConvert.DeserializeObject<KafeContex>(json);
-            }
-            catch (Exception)
-            {
-                db = new KafeContex();
-            }
-        }
-
-        private void OrnekVerileriYukle()
-        {
-            db.Urunler = new List<Urun>
-            {
-                new Urun{ UrunAd="Kola", BirimFiyat=6.99m},
-                new Urun{ UrunAd="Çay", BirimFiyat=3.99m},
-            };
-            db.Urunler.Sort();
-        }
-
+           
         private void MasalariOlustur()
         {
             #region ListWiew İmajlarının Hazırlanması
@@ -64,10 +41,10 @@ namespace KafeKod
             #endregion
             ListViewItem lvi;
 
-            for (int i = 1; i < db.MasaAdet; i++)
+            for (int i = 1; i < Properties.Settings.Default.MasaAdet; i++)
             {
                 lvi = new ListViewItem("Masa" + i);
-                Siparis sip = db.AktifSiparisler.FirstOrDefault(x => x.MasaNo == i);
+                Siparis sip = db.Siparisler.FirstOrDefault(x => x.MasaNo == i && x.Durum == SiparisDurum.Aktif);
 
                 if (sip == null)
                 {
@@ -103,10 +80,12 @@ namespace KafeKod
                     else
                     {
                         sip = new Siparis();
+                        sip.Durum = SiparisDurum.Aktif;
                         sip.MasaNo = (int)lvi.Tag; //masa noyu koyduk
                         sip.AcilisZamani = DateTime.Now; //acilis zamanini koyduk
                         lvi.Tag = sip; //tag de istediğimiz nesneyi saklayabiliriz
-                        db.AktifSiparisler.Add(sip);
+                        db.Siparisler.Add(sip);
+                        db.SaveChanges(); //yapılan her değişiklikte kaydetmemiz lazım
 
                     }
                     //bu noktadan sonra if e de girse else de girse sip dolu
@@ -117,14 +96,12 @@ namespace KafeKod
                     frmSiparis.ShowDialog();
 
 
-                    //masadan siparis alınmış aktif değilse masano tag ni int e ceviriyoruz ki boş olduğu görünsün diye
+                    //masadan siparis alınmış aktif değilse masano tag ni int e ceviriyoruz ki boş olduğu görünsün diye sipariş varsa kalsın
+                    //masa kapandıysa boşalt
                     if (sip.Durum == SiparisDurum.Odendi || sip.Durum == SiparisDurum.Iptal)
                     {
                         lvi.Tag = sip.MasaNo;
-                        lvi.ImageKey = "bos";
-                        db.AktifSiparisler.Remove(sip);
-                        db.GecmisSiparisler.Add(sip);
-
+                        lvi.ImageKey = "bos";                       
                     }
                 }
             }
@@ -157,8 +134,7 @@ namespace KafeKod
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string json = JsonConvert.SerializeObject(db); //verileri json dosyasına yazdırıyoruz
-            File.WriteAllText("veri.json", json);
+            db.Dispose();
         }
 
         private ListViewItem MasaBul (int masaNo)

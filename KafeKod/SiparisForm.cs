@@ -20,28 +20,28 @@ namespace KafeKod
         //cift tıklayınca masaya masano çıkıyor
         private KafeContex db;
         private Siparis siparis;
-        BindingList<SiparisDetay> blSiparisDetaylar;
+        
         public SiparisForm(KafeContex kafeVeri,Siparis siparis )
         {
             db = kafeVeri;
             this.siparis = siparis;
-            blSiparisDetaylar = new BindingList<SiparisDetay>(siparis.SiparisDetaylar);
             InitializeComponent();
+            dgvSiparisDetaylari.AutoGenerateColumns = false;
             MasaNolariYükle();
             masanoGuncelle();
             TutarGuncelle();
-            cboUrun.DataSource = db.Urunler; //.OrderBy(x=> x.UrunAd).ToList(); //sıralama yapar
+            cboUrun.DataSource = db.Urunler.ToList(); //.OrderBy(x=> x.UrunAd).ToList(); //sıralama yapar
             //cboUrun.SelectedItem = null; boş gelmesini istiyorsak
-            dgvSiparisDetaylari.DataSource = blSiparisDetaylar;
+            dgvSiparisDetaylari.DataSource = siparis.SiparisDetaylar.ToList();
 
         }
 
         private void MasaNolariYükle()
         {
             cboMasaNo.Items.Clear();
-            for(int i = 1; i <= db.MasaAdet; i++)
+            for(int i = 1; i <= Properties.Settings.Default.MasaAdet; i++)
             {
-                if (!db.AktifSiparisler.Any(x=>x.MasaNo==i)) //db deki aktif siparişler içerisinde masano su i olan var mı? (dolu olan)
+                if (!db.Siparisler.Any(x=>x.MasaNo==i && x.Durum==SiparisDurum.Aktif)) //db deki aktif siparişler içerisinde masano su i olan var mı? (dolu olan)
                 {
                     cboMasaNo.Items.Add(i);
                 }
@@ -50,7 +50,7 @@ namespace KafeKod
 
         private void TutarGuncelle()
         {
-            lblTutar.Text = siparis.ToplamTutarTL;
+            lblTutar.Text =siparis.SiparisDetaylar.Sum(x => x.Adet*x.BirimFiyat).ToString("0.00")+"₺";
         }
 
         private void masanoGuncelle()
@@ -70,14 +70,19 @@ namespace KafeKod
             Urun seciliUrun = (Urun)cboUrun.SelectedItem;
             var sd = new SiparisDetay
             {
+                UrunId = seciliUrun.Id,
                 UrunAd = seciliUrun.UrunAd,
                 BirimFiyat = seciliUrun.BirimFiyat,
                 Adet = (int)nudAdet.Value
             };
-            blSiparisDetaylar.Add(sd); //blSiparisDetaylar= siparis.SiparisDetaylar
+            siparis.SiparisDetaylar.Add(sd); //blSiparisDetaylar= siparis.SiparisDetaylar
             //dgvSiparisDetaylari.DataSource = null;
             //dgvSiparisDetaylari.DataSource = siparis.SiparisDetaylar;
             //cboUrun.SelectedItem = null;
+            db.SaveChanges();
+            dgvSiparisDetaylari.DataSource = null;
+            dgvSiparisDetaylari.DataSource = siparis.SiparisDetaylar;
+            cboUrun.SelectedIndex = 0;
             nudAdet.Value = 1;
             TutarGuncelle();
         }
@@ -97,6 +102,7 @@ namespace KafeKod
             {
                 siparis.Durum = SiparisDurum.Iptal;
                 siparis.KapanisZamani = DateTime.Now;
+                db.SaveChanges();
                 Close();
             }
         }
@@ -111,7 +117,9 @@ namespace KafeKod
             {
                 siparis.Durum = SiparisDurum.Odendi;
                 siparis.KapanisZamani = DateTime.Now;
-                siparis.OdenenTutar = siparis.ToplamTutar();
+                siparis.OdenenTutar = siparis.SiparisDetaylar
+                                                        .Sum(x=> x.Adet*x.BirimFiyat);
+                db.SaveChanges();
                 Close();
             }
 
@@ -141,7 +149,8 @@ namespace KafeKod
             {
                 var seciliSatir = dgvSiparisDetaylari.SelectedRows[0];
                 var sipDetay = (SiparisDetay)seciliSatir.DataBoundItem;
-                blSiparisDetaylar.Remove(sipDetay);
+                siparis.SiparisDetaylar.Remove(sipDetay);
+                db.SaveChanges();
             }
             TutarGuncelle();
         }
@@ -168,9 +177,15 @@ namespace KafeKod
                 };
                 MasaTasiniyor(this, args);
             }
-            siparis.MasaNo = hedefMasaNo;
+            siparis.MasaNo = hedefMasaNo; //değişiklik yapıldı kaydet
+            db.SaveChanges();
             masanoGuncelle();
             MasaNolariYükle();
+
+        }
+
+        private void SiparisForm_Load(object sender, EventArgs e)
+        {
 
         }
 
@@ -185,7 +200,7 @@ namespace KafeKod
 
         //    }
         //}
-    } 
+    }
 
     public class MasaTasimaEventArgs : EventArgs
     {
