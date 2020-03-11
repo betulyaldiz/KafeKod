@@ -14,10 +14,10 @@ namespace KafeKod
     
     public partial class UrunlerForm : Form
     {
-        KafeVeri db;
+        KafeContex db;
         private BindingList<Urun> blUrunler;
 
-        public UrunlerForm(KafeVeri kafeVeri)
+        public UrunlerForm(KafeContex kafeVeri)
         {
             db = kafeVeri;
             InitializeComponent();

@@ -18,10 +18,10 @@ namespace KafeKod
 
 
         //cift tıklayınca masaya masano çıkıyor
-        private KafeVeri db;
+        private KafeContex db;
         private Siparis siparis;
         BindingList<SiparisDetay> blSiparisDetaylar;
-        public SiparisForm(KafeVeri kafeVeri,Siparis siparis )
+        public SiparisForm(KafeContex kafeVeri,Siparis siparis )
         {
             db = kafeVeri;
             this.siparis = siparis;

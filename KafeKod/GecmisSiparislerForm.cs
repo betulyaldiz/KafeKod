@@ -13,8 +13,8 @@ namespace KafeKod
 {
     public partial class GecmisSiparislerForm : Form
     {
-        KafeVeri db;
-        public GecmisSiparislerForm(KafeVeri kafeVeri)
+        KafeContex db;
+        public GecmisSiparislerForm(KafeContex kafeVeri)
         {
             db = kafeVeri;
             InitializeComponent();

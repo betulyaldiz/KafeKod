@@ -15,7 +15,7 @@ namespace KafeKod
 { //Kafekod referances sağ tık ile Kafekod.Data yı referans ekliyoruz iki projeyi biribirine bağlıyoruz.
     public partial class Form1 : Form
     {
-        KafeVeri db;
+        KafeContex db;
         //int masaAdet = 20;
 
         public Form1()
@@ -35,11 +35,11 @@ namespace KafeKod
             try
             {
                 string json = File.ReadAllText("veri.json");
-                db = JsonConvert.DeserializeObject<KafeVeri>(json);
+                db = JsonConvert.DeserializeObject<KafeContex>(json);
             }
             catch (Exception)
             {
-                db = new KafeVeri();
+                db = new KafeContex();
             }
         }
 
