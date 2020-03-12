@@ -39,9 +39,11 @@ namespace KafeKod
             il.ImageSize = new Size(64, 64);
             lvwMasalar.LargeImageList = il;
             #endregion
+
+            lvwMasalar.Items.Clear();
             ListViewItem lvi;
 
-            for (int i = 1; i < Properties.Settings.Default.MasaAdet; i++)
+            for (int i = 1; i <= Properties.Settings.Default.MasaAdet; i++)
             {
                 lvi = new ListViewItem("Masa" + i);
                 Siparis sip = db.Siparisler.FirstOrDefault(x => x.MasaNo == i && x.Durum == SiparisDurum.Aktif);
@@ -152,6 +154,19 @@ namespace KafeKod
 
             }
             return null;
+        }
+
+  
+
+        private void tsmiAyarlar_Click(object sender, EventArgs e)
+        {
+            var frm = new AyarlarForm();
+            DialogResult dr = frm.ShowDialog();
+
+            if (dr==DialogResult.OK)
+            {
+                MasalariOlustur();
+            }
         }
     }
 }

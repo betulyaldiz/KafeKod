@@ -30,7 +30,7 @@ namespace KafeKod
             MasaNolariYükle();
             masanoGuncelle();
             TutarGuncelle();
-            cboUrun.DataSource = db.Urunler.ToList(); //.OrderBy(x=> x.UrunAd).ToList(); //sıralama yapar
+            cboUrun.DataSource = db.Urunler.Where(x=> !x.StoktaYok).ToList(); //.OrderBy(x=> x.UrunAd).ToList(); //sıralama yapar
             //cboUrun.SelectedItem = null; boş gelmesini istiyorsak
             dgvSiparisDetaylari.DataSource = siparis.SiparisDetaylar.ToList();
 

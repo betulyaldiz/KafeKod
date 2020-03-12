@@ -22,8 +22,8 @@ namespace KafeKod
             db = kafeVeri;
             InitializeComponent();
             dgvUrunler.AutoGenerateColumns = false; //ürün olmasına ragmen hiç sutunu olmayan bir dgv
-            dgvUrunler.DataSource = db.Urunler.OrderBy(x => x.UrunAd).ToList(); //binding list kaldırdık sıralı gelmesi için başlangıçtada Order by sıralaması yapıyoruz
-
+            //dgvUrunler.DataSource = db.Urunler.OrderBy(x => x.UrunAd).ToList(); //binding list kaldırdık sıralı gelmesi için başlangıçtada Order by sıralaması yapıyoruz
+            dgvUrunler.DataSource = new BindingSource(db.Urunler.OrderBy(x => x.UrunAd).ToList(), null);
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace KafeKod
             });
             db.SaveChanges();
 
-            dgvUrunler.DataSource = db.Urunler.OrderBy(x => x.UrunAd).ToList();
+            dgvUrunler.DataSource = new BindingSource(db.Urunler.OrderBy(x => x.UrunAd).ToList(), null);
         }
 
         private void dgvUrunler_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -65,9 +65,33 @@ namespace KafeKod
                 else
                 {
                     dgvUrunler.Rows[e.RowIndex].ErrorText = "";
-                    db.SaveChanges();
                 }
             }
+            db.SaveChanges();
+        }
+
+        private void dgvUrunler_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            Urun urun = (Urun)e.Row.DataBoundItem;
+
+            if (urun.SiparisDetaylar.Count>0)
+            {
+                MessageBox.Show("Ürün geçmiş sipariş ile bağlantılı olduğu için silinemez!");
+                e.Cancel = true;
+                return;
+            }
+            db.Urunler.Remove(urun);
+            db.SaveChanges();
+        }
+
+        private void UrunlerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            txtUrunAd.Focus(); // dgv deki son değişikliğin kaydedilmesini tetiklemek için
+        }
+
+        private void dgvUrunler_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            db.SaveChanges();
         }
     }
 }

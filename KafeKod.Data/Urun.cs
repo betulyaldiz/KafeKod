@@ -11,12 +11,18 @@ namespace KafeKod.Data
     [Table("Urunler")]
     public class Urun  
     {
+        public Urun()
+        {
+            SiparisDetaylar = new List<SiparisDetay>();
+        }
         //ürün özellikleri properties
         public int Id { get; set; }
 
         [Required,MaxLength(50)]
         public string UrunAd { get; set; }
         public decimal BirimFiyat { get; set; }
+
+        public bool StoktaYok { get; set; } //stokta true olursa listede görünmeyecek
 
         public virtual List<SiparisDetay> SiparisDetaylar { get; set; }
         

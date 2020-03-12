@@ -36,6 +36,7 @@
             this.txtUrunAd = new System.Windows.Forms.TextBox();
             this.clmUrunAd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmBirimFiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nudbirimFiyat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).BeginInit();
             this.SuspendLayout();
@@ -87,14 +88,17 @@
             this.dgvUrunler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUrunler.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmUrunAd,
-            this.clmBirimFiyat});
+            this.clmBirimFiyat,
+            this.Column1});
             this.dgvUrunler.Location = new System.Drawing.Point(30, 91);
             this.dgvUrunler.Name = "dgvUrunler";
             this.dgvUrunler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUrunler.Size = new System.Drawing.Size(365, 350);
             this.dgvUrunler.TabIndex = 12;
             this.dgvUrunler.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvUrunler_CellValidating);
+            this.dgvUrunler.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUrunler_CellValueChanged);
             this.dgvUrunler.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvUrunler_DataError);
+            this.dgvUrunler.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvUrunler_UserDeletingRow);
             // 
             // txtUrunAd
             // 
@@ -108,12 +112,21 @@
             this.clmUrunAd.DataPropertyName = "UrunAd";
             this.clmUrunAd.HeaderText = "Ürün Adı";
             this.clmUrunAd.Name = "clmUrunAd";
+            this.clmUrunAd.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // clmBirimFiyat
             // 
             this.clmBirimFiyat.DataPropertyName = "BirimFiyat";
             this.clmBirimFiyat.HeaderText = "Birim Fiyat";
             this.clmBirimFiyat.Name = "clmBirimFiyat";
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "StoktaYok";
+            this.Column1.HeaderText = "Stokta Yok";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // UrunlerForm
             // 
@@ -129,6 +142,7 @@
             this.MinimumSize = new System.Drawing.Size(446, 513);
             this.Name = "UrunlerForm";
             this.Text = "UrunlerForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UrunlerForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.nudbirimFiyat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).EndInit();
             this.ResumeLayout(false);
@@ -146,5 +160,6 @@
         private System.Windows.Forms.TextBox txtUrunAd;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmUrunAd;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmBirimFiyat;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
     }
 }
